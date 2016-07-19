@@ -1,5 +1,6 @@
 package liquibase.ext.redshift.database;
 
+import liquibase.database.AbstractJdbcDatabase;
 import liquibase.database.DatabaseConnection;
 import liquibase.database.core.PostgresDatabase;
 import liquibase.exception.DatabaseException;
@@ -199,5 +200,17 @@ public class RedshiftDatabase extends PostgresDatabase {
     @Override
     public int getPriority() {
         return PrioritizedService.PRIORITY_DATABASE;
+    }
+    /**
+     * The PostgresDatabase implementation is not supported by redshift.
+     * This method return public. TODO : support any schema by executing a query instead (current_schema())
+     *  @see PostgresDatabase#getConnectionSchemaName()
+     *  @see AbstractJdbcDatabase#getConnectionSchemaName()
+     *  @see liquibase.database.AbstractJdbcDatabase#getConnectionSchemaNameCallStatement()
+     * @return
+     */
+    @Override
+    protected String getConnectionSchemaName() {
+        return "public";
     }
 }
