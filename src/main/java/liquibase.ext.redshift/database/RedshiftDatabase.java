@@ -3,6 +3,7 @@ package liquibase.ext.redshift.database;
 import liquibase.database.DatabaseConnection;
 import liquibase.database.core.PostgresDatabase;
 import liquibase.exception.DatabaseException;
+import liquibase.servicelocator.PrioritizedService;
 import liquibase.util.StringUtils;
 
 import java.util.Arrays;
@@ -193,5 +194,10 @@ public class RedshiftDatabase extends PostgresDatabase {
     @Override
     public String getCurrentDateTimeFunction() {
         return "GETDATE()";
+    }
+
+    @Override
+    public int getPriority() {
+        return PrioritizedService.PRIORITY_DATABASE;
     }
 }
